@@ -103,7 +103,7 @@ header, .todo-input-wrapper {
     color: black;
     margin-bottom: .5rem;
     padding-left: .5rem;
-    transition: all .5s ease-in-out;
+    transition: all .7s ease-in-out;
     width: 300px;
 }
 
