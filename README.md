@@ -1,3 +1,5 @@
+HomeWork Todo list project - Task 1 (new features) - https://pavelsergeevich.github.io/todo-lesson/app/
+
 # DOM Manipulation and JS project setup
 
 1. Inspiration for a project: [Beginner Vanilla Javascript Project Tutorial](https://youtu.be/Ttf3CEsEwMQ)
