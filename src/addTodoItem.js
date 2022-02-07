@@ -1,9 +1,16 @@
-import { removeTodoFromSStorage, checkSelect } from "./sessionStorage";
+import {
+  removeTodoFromSStorage,
+  checkSelect,
+  changeTodoInSStorage,
+} from "./sessionStorage";
 
-export const getTodoItem = (text) => {
+export const getTodoItem = (text, check) => {
   // Create Todo Item
   const todoItem = document.createElement("li");
   todoItem.classList.add("todo-item");
+  if (check) {
+    todoItem.classList.add("todo-item_completed");
+  }
 
   // Create and add Todo Text
   const todoText = document.createElement("span");
@@ -36,7 +43,7 @@ function removeTodoItem(todoItem) {
       removeTodoFromSStorage(todoItem);
       todoItem.remove();
       checkSelect();
-    })
+    });
   };
 }
 
@@ -44,5 +51,8 @@ function toggleCheckButton(todoItem) {
   return (e) => {
     e.preventDefault();
     todoItem.classList.toggle("todo-item_completed");
+    todoItem.addEventListener("click", function () {
+      changeTodoInSStorage(todoItem);
+    });
   };
 }
