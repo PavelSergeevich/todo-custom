@@ -2,7 +2,11 @@ import "../styles/index.css";
 import "../index.html";
 
 import { getTodoItem } from "./addTodoItem";
-import { saveTodoToSStorage, getTodosFromSStorage } from "./sessionStorage";
+import {
+  saveTodoToSStorage,
+  getTodosFromSStorage,
+  checkSelect,
+} from "./sessionStorage";
 import { filterTodoItems } from "./filterTodoItems";
 import {
   clearTodoInput,
@@ -11,7 +15,7 @@ import {
 } from "./todoInput";
 
 const todoInputWrapper = document.querySelector(".todo-input-wrapper");
-const { todoInput, todoButton } = getTodoInputItems(todoInputWrapper);
+const { todoInput, todoButton } = getTodoInputItems();
 const todoList = document.querySelector(".todo-list");
 const todoSelect = document.querySelector(".todo-select");
 
@@ -23,6 +27,7 @@ todoSelect.addEventListener("change", filterTodos);
 function onDOMLoaded() {
   renderTodosFromSStorage();
   validateTodoInput(todoInputWrapper);
+  checkSelect();
 }
 
 function renderTodosFromSStorage() {
@@ -38,13 +43,14 @@ function renderTodosFromSStorage() {
 
 function addTodo(event) {
   event.preventDefault();
-
+  
   saveTodoToSStorage(todoInput.value);
 
   const todoItem = getTodoItem(todoInput.value);
   todoList.appendChild(todoItem);
 
   clearTodoInput(todoInputWrapper);
+  checkSelect();
 }
 
 function filterTodos(e) {

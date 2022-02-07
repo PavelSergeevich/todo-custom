@@ -1,7 +1,7 @@
-export function getTodoInputItems(todoInputWrapper) {
-  const todoInput = todoInputWrapper.querySelector(".todo-input");
-  const todoHelper = todoInputWrapper.querySelector(".todo-helper");
-  const todoButton = todoInputWrapper.querySelector(".todo-button");
+export function getTodoInputItems() {
+  const todoInput = document.querySelector(".todo-input");
+  const todoHelper = document.querySelector(".todo-helper");
+  const todoButton = document.querySelector(".todo-button");
 
   return {
     todoInput,
@@ -14,10 +14,15 @@ export function validateTodoInput(todoInputWrapper) {
   const { todoInput, todoHelper, todoButton } =
     getTodoInputItems(todoInputWrapper);
   todoButton.classList.add("todo-button_disabled");
-  todoHelper.classList.add("todo-helper_visible");
-  todoInput.addEventListener("keypress", (event) => {
-    if (event.keyCode === 13 && todoInput.value.length < 3) {
-      event.preventDefault();
+  todoInput.addEventListener("focus", () => {
+    todoHelper.classList.add("todo-helper_visible");
+  });
+  todoInput.addEventListener("blur", () => {
+    todoHelper.classList.remove("todo-helper_visible");
+  });
+  todoInput.addEventListener("keypress", (e) => {
+    if (e.keyCode === 13 && todoInput.value.length < 3) {
+      e.preventDefault();
     }
   });
   todoInput.addEventListener("input", () => {

@@ -28,5 +28,5 @@ export function filterTodoItems(todoItems, optionValue) {
           return;
       }
     });
-  }
+  } 
 }
