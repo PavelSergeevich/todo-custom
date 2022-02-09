@@ -1,17 +1,19 @@
 export function getTodoInputItems() {
   const todoInput = document.querySelector(".todo-input");
   const todoHelper = document.querySelector(".todo-helper");
+  const todoHelperMax = document.querySelector(".todo-helper-max");
   const todoButton = document.querySelector(".todo-button");
 
   return {
     todoInput,
     todoHelper,
+    todoHelperMax,
     todoButton,
   };
 }
 
 export function validateTodoInput(todoInputWrapper) {
-  const { todoInput, todoHelper, todoButton } =
+  const { todoInput, todoHelper, todoHelperMax, todoButton } =
     getTodoInputItems(todoInputWrapper);
   todoButton.classList.add("todo-button_disabled");
   todoInput.addEventListener("focus", () => {
@@ -32,6 +34,13 @@ export function validateTodoInput(todoInputWrapper) {
     } else {
       todoButton.classList.add("todo-button_disabled");
       todoHelper.classList.add("todo-helper_visible");
+    }
+    if (todoInput.value.length <= 30) {
+      todoButton.classList.remove("todo-button_disabled");
+      todoHelperMax.classList.remove("todo-helper-max_visible");
+    } else {
+      todoButton.classList.add("todo-button_disabled");
+      todoHelperMax.classList.add("todo-helper-max_visible");
     }
   });
 }

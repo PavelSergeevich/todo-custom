@@ -1,32 +1,10 @@
-const SELECT_OPTIONS = {
-  COMPLETED: "completed",
-  UNCOMPLETED: "uncompleted",
-  ALL: "all",
-};
-
-export function filterTodoItems(todoItems, optionValue) {
-  if (todoItems.length) {
-    todoItems.forEach((todoItem) => {
-      switch (optionValue) {
-        case SELECT_OPTIONS.COMPLETED:
-          if (todoItem.classList.contains("todo-item_completed")) {
-            todoItem.style.display = "flex";
-          } else {
-            todoItem.style.display = "none";
-          }
-          break;
-        case SELECT_OPTIONS.UNCOMPLETED:
-          if (!todoItem.classList.contains("todo-item_completed")) {
-            todoItem.style.display = "flex";
-          } else {
-            todoItem.style.display = "none";
-          }
-          break;
-        case SELECT_OPTIONS.ALL:
-        default:
-          todoItem.style.display = "flex";
-          return;
-      }
-    });
-  } 
+export function searchItems(searchInput, todoText, targetItem) {
+  const todoArray = todoText.toLowerCase().split('');
+  const searchArray = searchInput.toLowerCase().split('');
+  let checker = (arr, target) => target.every(v => arr.includes(v));
+  if (checker(searchArray, todoArray)) {
+    return true;
+  } else {
+    return false;
+  }
 }

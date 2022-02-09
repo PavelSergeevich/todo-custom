@@ -5,9 +5,9 @@ import { getTodoItem } from "./addTodoItem";
 import {
   saveTodoToSStorage,
   getTodosFromSStorage,
-  checkSelect,
+  checkItemsList,
 } from "./sessionStorage";
-import { filterTodoItems } from "./filterTodoItems";
+import { searchItems } from "./filterTodoItems";
 import {
   clearTodoInput,
   getTodoInputItems,
@@ -17,55 +17,49 @@ import {
 const todoInputWrapper = document.querySelector(".todo-input-wrapper");
 const { todoInput, todoButton } = getTodoInputItems();
 const todoList = document.querySelector(".todo-list");
-const todoSelect = document.querySelector(".todo-select");
+const searchInput = document.querySelector(".search-input");
 
 document.addEventListener("DOMContentLoaded", onDOMLoaded);
 todoInput.addEventListener("input", validateTodoInput);
 todoButton.addEventListener("click", addTodo);
-todoSelect.addEventListener("change", filterTodos);
+searchInput.addEventListener("input", showDesiredItem);
 
 function onDOMLoaded() {
   renderTodosFromSStorage();
   validateTodoInput(todoInputWrapper);
-  checkSelect();
+  checkItemsList();
 }
 
 function renderTodosFromSStorage() {
   let todos = getTodosFromSStorage();
-for (let key in todos) {
-  const todoItem = getTodoItem(todos[key].value, todos[key].status);
+
+  todos.forEach((todoValue) => {
+    const todoItem = getTodoItem(todoValue);
 
     // Add todo item to list
     todoList.appendChild(todoItem);
-}
-  // todos.forEach((todoValue) => {
-  //   const todoItem = getTodoItem(todoValue.value, todoValue.value.status);
-
-  //   // Add todo item to list
-  //   todoList.appendChild(todoItem);
-  // });
+  });
 }
 
 function addTodo(event) {
   event.preventDefault();
 
-  saveTodoToSStorage(todoInput.value, true);
+  saveTodoToSStorage(todoInput.value);
 
   const todoItem = getTodoItem(todoInput.value);
   todoList.appendChild(todoItem);
 
   clearTodoInput(todoInputWrapper);
-  checkSelect();
 }
 
-function filterTodos(e) {
+function showDesiredItem(e) {
   const todoItems = todoList.childNodes;
 
-  filterTodoItems(todoItems, e.target.value);
+  todoItems.forEach((listItem) => {
+    if (searchItems(listItem.innerText, searchInput.value)) {
+      listItem.style.display = "flex";
+    } else {
+      listItem.style.display = "none";
+    }
+  });
 }
-
-// TODO fix bugs:
-// 1. select should be disabled when no option is displayed
-// 2. forbid form submit with enter key, when input value is less than 3 characters
-// 3. when todoInput is not in focus, helper text should not be displayed
-// 4. save to session storage todo state: completed, not completed - and update it
