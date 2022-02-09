@@ -35,7 +35,7 @@ export function validateTodoInput(todoInputWrapper) {
       todoButton.classList.add("todo-button_disabled");
       todoHelper.classList.add("todo-helper_visible");
     }
-    if (todoInput.value.length <= 30) {
+    if (todoInput.value.length <= 15) {
       todoButton.classList.remove("todo-button_disabled");
       todoHelperMax.classList.remove("todo-helper-max_visible");
     } else {
